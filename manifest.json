@@ -1,9 +1,9 @@
 {
   "vendor": "vtex",
-  "name": "react-app-template",
+  "name": "component-library",
   "version": "1.0.0",
-  "title": "CHANGE_ME",
-  "description": "CHANGE_ME",
+  "title": "React Component Library",
+  "description": "VTEX IO React component library",
   "builders": {
     "react": "3.x",
     "messages": "1.x"
