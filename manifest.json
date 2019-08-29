@@ -1,15 +1,19 @@
 {
-  "vendor": "vtex",
+  "vendor": "vtexpages",
   "name": "component-library",
-  "version": "1.0.0",
-  "title": "React Component Library",
-  "description": "VTEX IO React component library",
+  "version": "0.1.0",
+  "title": "VTEX Component Library",
+  "description": "",
   "builders": {
+    "pages": "1.x",
     "react": "3.x",
     "messages": "1.x"
   },
   "dependencies": {},
-  "registries": ["smartcheckout"],
+  "registries": [
+    "smartcheckout"
+  ],
   "policies": [],
-  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
+  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema",
+  "mustUpdateAt": "2020-08-29"
 }

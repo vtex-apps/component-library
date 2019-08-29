@@ -4,6 +4,9 @@
     "test": "vtex-test-tools test"
   },
   "dependencies": {
+    "@storybook/addons": "^5.1.11",
+    "@storybook/channels": "^5.1.11",
+    "@storybook/ui": "^5.1.11",
     "apollo-client": "^2.6.3",
     "react": "^16.8.6",
     "react-apollo": "^2.5.8",

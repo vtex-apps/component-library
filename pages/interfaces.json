@@ -1,0 +1,10 @@
+{
+  "app": {
+    "component": "index",
+    "render": "client"
+  },
+  "app.index": {
+    "component": "index",
+    "render": "client"
+  }
+}
