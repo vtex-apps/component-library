@@ -1,6 +1,6 @@
 {
   "app": {
-    "component": "index",
+    "component": "*",
     "render": "client"
   },
   "app.index": {
