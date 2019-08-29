@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
+    "allowJs": true,
     "alwaysStrict": true,
     "esModuleInterop": true,
     "jsx": "react",
     "lib": ["es2017", "dom", "es2018.promise", "esnext.asynciterable"],
-    "module": "es6",
+    "module": "esnext",
     "moduleResolution": "node",
     "noEmitOnError": false,
     "noImplicitAny": true,
