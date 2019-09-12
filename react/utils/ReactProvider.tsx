@@ -1,14 +1,34 @@
 /* eslint-disable no-console */
 import React from 'react'
-import addons, { mockChannel } from '@storybook/addons'
+import Preview from './Preview'
+import mockStories from '../utils/mockStories'
+
+import addons from '@storybook/addons'
+import createChannel from '@storybook/channel-postmessage'
 import Channel from '@storybook/channels'
 import { Provider } from '@storybook/ui'
-import { create } from '@storybook/theming/create'
-import { configure } from '@storybook/react'
-import { dependencies } from '../../manifest.json'
-
-import Button from 'vtex.button/index'
-import Stories from 'vtex.button/stories'
+import { create } from '@storybook/theming'
+import {
+  CHANNEL_CREATED,
+  GET_CURRENT_STORY,
+  SET_CURRENT_STORY,
+  GET_STORIES,
+  SET_STORIES,
+  STORIES_CONFIGURED,
+  SELECT_STORY,
+  PREVIEW_KEYDOWN,
+  STORY_ADDED,
+  STORY_CHANGED,
+  STORY_UNCHANGED,
+  FORCE_RE_RENDER,
+  REGISTER_SUBSCRIPTION,
+  STORY_INIT,
+  STORY_RENDER,
+  STORY_RENDERED,
+  STORY_MISSING,
+  STORY_ERRORED,
+  STORY_THREW_EXCEPTION,
+} from '@storybook/core-events'
 
 export default class ReactProvider extends Provider {
   public channel: Channel
@@ -16,7 +36,9 @@ export default class ReactProvider extends Provider {
 
   public constructor() {
     super()
-    addons.setChannel(mockChannel())
+
+    const ch = createChannel({ page: 'manager' })
+    addons.setChannel(ch)
     this.channel = addons.getChannel()
     this.state = {}
   }
@@ -26,46 +48,37 @@ export default class ReactProvider extends Provider {
     return {}
   }
 
-  public renderPreview() {
-    return (
-      <>
-        <p>This is the Preview and this is button:</p>
-        <Button />
-      </>
-    )
+  public renderPreview(story: string) {
+    return <Preview story={story} />
   }
 
   public handleAPI(api: any) {
     console.log('handler API ', api)
     api.setOptions({
-      name: 'VTEX component library',
-      showStoriesPanel: true,
-      theme: create({ colorPrimary: 'hotpink', colorSecondary: 'orangered' }),
+      theme: create({
+        base: 'dark',
+        brandTitle: 'VTEX',
+        brandUrl: 'https://vtex.github.io/brand/static/media/logo.2f3fc60b.svg',
+        colorPrimary: 'hotpink',
+        colorSecondary: 'orangered',
+      }),
     })
-    const apps = Object.keys(dependencies)
-    console.log('APPS: ', apps)
-    // const Button = require(`${apps[0]}/index`)
-    // .then(butt => console.log('THEN BUTT: ', butt))
-    // .catch(err => console.log(err))
-    console.log('BUTTON: ', Button)
-    // const buttonStories = import(`${apps[0]}/stories`)
-    //   .then(butt => console.log('THEN BUTT: ', butt))
-    //   .catch(err => console.log(err))
-    // console.log('Stori: ', buttonStories)
-    console.log('STORi ', Stories)
-    api.setStories([
-      {
-        kind: apps[0],
-        stories: [],
-      },
-      // {
-      //   kind: 'Test',
-      //   stories: [() => <Button />],
-      // },
-    ])
-    // You can use to listen to the story change and update the preview.
-    // api.onStory((kind: any, story: any) => {
-    //   this.globalState.emit('change', kind, story)
+
+    api.on(STORY_CHANGED, (kind: any, story: any) => {
+      console.log('[STORY CHANGED] - Kind: ', kind, ' story: ', story)
+      this.globalState.emit('change', kind, story)
+    })
+
+    api.on(SELECT_STORY, (kind: any, story: any) => {
+      console.log('[SELECT STORY] - Kind: ', kind, ' story: ', story)
+      this.globalState.emit('select', kind, story)
+    })
+
+    // api.on(STORY_INIT, (kind: any, story: any) => {
+    //   console.log('[STORY INIT] - Kind: ', kind, ' story: ', story)
+    //   this.globalState.emit('init', kind, story)
     // })
+
+    mockStories()
   }
 }

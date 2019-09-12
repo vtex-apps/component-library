@@ -10,7 +10,8 @@
     "messages": "1.x"
   },
   "dependencies": {
-    "vtex.button": "0.x"
+    "vtex.button": "0.x",
+    "vtex.styleguide": "9.x"
   },
   "registries": [
     "smartcheckout"
