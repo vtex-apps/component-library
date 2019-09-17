@@ -8,27 +8,25 @@ import { withKnobs, text, boolean, select } from '@storybook/addon-knobs'
 
 import { Button, Input } from 'vtex.styleguide'
 
-const THEME = create({
-  base: 'light',
-  brandTitle: 'VTEX',
-  brandImage: 'https://vtex.github.io/brand/static/media/logo.2f3fc60b.svg',
-  colorPrimary: 'hotpink',
-  colorSecondary: 'orangered',
-})
-
-addParameters({
-  options: {
-    theme: THEME,
-  },
-})
-
-addons.register('storybookjs/knobs')
-
-const SimpleComponent = ({ children }) => <div>{children}</div>
-
 const mockStories = api => {
+  const THEME = create({
+    base: 'light',
+    brandTitle: 'VTEX components',
+    // brandImage: 'https://vtex.github.io/brand/static/media/logo.2f3fc60b.svg',
+    colorPrimary: 'hotpink',
+    colorSecondary: 'orangered',
+  })
+
+  addParameters({
+    options: {
+      theme: THEME,
+    },
+  })
+
+  const SimpleComponent = ({ children }) => <div>{children}</div>
+
   console.log('mocking stories...', api)
-  api.setOptions({ theme: THEME })
+  // api.setOptions({ theme: THEME })
   storiesOf('web framework|example', module)
     .add(
       'with text',

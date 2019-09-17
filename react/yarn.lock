@@ -1306,7 +1306,7 @@
   dependencies:
     core-js "^3.0.1"
 
-"@storybook/client-logger@5.2.0":
+"@storybook/client-logger@5.2.0", "@storybook/client-logger@^5.1.11":
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/@storybook/client-logger/-/client-logger-5.2.0.tgz#68325c3abd7465c9a30e70dc8128e0c666889482"
   integrity sha512-rjDiIT8awjLcOtf7n7Il2KPpYDrmGnP6iGRtVPRDBWghtaDNUVbwNNTRzbJDFGlDY41eUBiQkeemJZP6v9PCEA==
