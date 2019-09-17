@@ -8,7 +8,7 @@ import { Provider } from '@storybook/ui'
 import Preview from './ReactPreview'
 
 // addons registry
-import './addons'
+// import './addons'
 
 export default class ReactProvider extends Provider {
   public channel: Channel

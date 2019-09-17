@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 import React from 'react'
 // import addons from '@storybook/addons'
-import { storiesOf, addParameters } from '@storybook/react'
+import { storiesOf, addDecorator, addParameters } from '@storybook/react'
 import { create } from '@storybook/theming'
-import addons from '@storybook/addons'
 import { withKnobs, text, boolean, select } from '@storybook/addon-knobs'
+import { action } from '@storybook/addon-actions'
 
 import { Button, Input } from 'vtex.styleguide'
 
@@ -13,8 +13,8 @@ const mockStories = api => {
     base: 'light',
     brandTitle: 'VTEX components',
     // brandImage: 'https://vtex.github.io/brand/static/media/logo.2f3fc60b.svg',
-    colorPrimary: 'hotpink',
-    colorSecondary: 'orangered',
+    // colorPrimary: 'hotpink',
+    // colorSecondary: 'orangered',
   })
 
   addParameters({
@@ -22,6 +22,7 @@ const mockStories = api => {
       theme: THEME,
     },
   })
+  addDecorator(withKnobs)
 
   const SimpleComponent = ({ children }) => <div>{children}</div>
 
@@ -61,7 +62,7 @@ const mockStories = api => {
   storiesOf('admin|vtex.button', module)
     .addDecorator(withKnobs)
     .add(
-      'primary',
+      'default',
       () => (
         <Button
           variation={select(
@@ -74,7 +75,7 @@ const mockStories = api => {
             'primary',
             'vtex.button@1.x-variation-select'
           )}
-          onClick={() => console.log('click! aaa')}
+          onClick={action('onClick')}
           block={boolean(false)}>
           {text('Button') || 'cliquitos'}
         </Button>
@@ -83,10 +84,10 @@ const mockStories = api => {
         notes: 'button variation click',
       }
     )
-    .add('secondary', () => <Button variation="secondary">Secondary</Button>, {
+    .add('group', () => <Button variation="secondary">Secondary</Button>, {
       notes: 'button variation click',
     })
-    .add('tertiary', () => <Button variation="tertiary">Tertiary</Button>, {
+    .add('withIcon', () => <Button variation="tertiary">Tertiary</Button>, {
       notes: 'button variation click',
     })
 

@@ -57,8 +57,11 @@ export default class ReactPreview extends React.Component<PreviewProps> {
   public componentWillMount() {
     if (window && window.sbAPI) {
       // register addons ?
-      console.log('SETTING ADDONS ON CLIENT API')
-      window.__STORYBOOK_CLIENT_API__.setAddon(['storybookjs/knobs'])
+      // console.log('SETTING ADDONS ON CLIENT API')
+      // window.__STORYBOOK_CLIENT_API__.setAddon([
+      //   'vtex/vtex-base-addon',
+      //   'storybookjs/knobs',
+      // ])
       // for now they are mocked, but they should be dynamically imported from IO apps
       mockStories(window.sbAPI)
     }

@@ -17,6 +17,7 @@ export default class App extends React.Component {
     // Storybook UI has to be imported dynamically cuz it depends on Qs being on the window
     import('./utils/StoryBookUI').then(renderStorybookUI => {
       import('./utils/ReactProvider').then(ReactProvider => {
+        import('./utils/addons')
         const roolEl = document.getElementById('component-library-root')
         renderStorybookUI.default(roolEl, new ReactProvider.default())
       })
