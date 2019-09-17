@@ -1,12 +1,34 @@
+/* eslint-disable no-console */
 import React from 'react'
-import { storiesOf } from '@storybook/react'
-// import { withKnobs, text, boolean } from '@storybook/addon-knobs'
+// import addons from '@storybook/addons'
+import { storiesOf, addParameters } from '@storybook/react'
+import { create } from '@storybook/theming'
+import addons from '@storybook/addons'
+import { withKnobs, text, boolean, select } from '@storybook/addon-knobs'
 
 import { Button, Input } from 'vtex.styleguide'
 
+const THEME = create({
+  base: 'light',
+  brandTitle: 'VTEX',
+  brandImage: 'https://vtex.github.io/brand/static/media/logo.2f3fc60b.svg',
+  colorPrimary: 'hotpink',
+  colorSecondary: 'orangered',
+})
+
+addParameters({
+  options: {
+    theme: THEME,
+  },
+})
+
+addons.register('storybookjs/knobs')
+
 const SimpleComponent = ({ children }) => <div>{children}</div>
 
-const mockStories = () => {
+const mockStories = api => {
+  console.log('mocking stories...', api)
+  api.setOptions({ theme: THEME })
   storiesOf('web framework|example', module)
     .add(
       'with text',
@@ -15,9 +37,16 @@ const mockStories = () => {
         notes: 'example text simple component',
       }
     )
-    .add('with emoji', () => <SimpleComponent>✨ ❤️ 🍪</SimpleComponent>, {
-      notes: 'example emoji simple component',
-    })
+    .add(
+      'with emoji',
+      () => {
+        console.log('I MOUNT')
+        return <SimpleComponent>✨ ❤️ 🍪</SimpleComponent>
+      },
+      {
+        notes: 'example emoji simple component',
+      }
+    )
 
   storiesOf('store|shelf', module)
     .add('default', () => <SimpleComponent>This is a shelf</SimpleComponent>, {
@@ -32,9 +61,30 @@ const mockStories = () => {
     )
 
   storiesOf('admin|vtex.button', module)
-    .add('primary', () => <Button variation="primary">Primary</Button>, {
-      notes: 'button variation click',
-    })
+    .addDecorator(withKnobs)
+    .add(
+      'primary',
+      () => (
+        <Button
+          variation={select(
+            'variation',
+            {
+              primary: 'primary',
+              secondary: 'secondary',
+              tertiary: 'tertiary',
+            },
+            'primary',
+            'vtex.button@1.x-variation-select'
+          )}
+          onClick={() => console.log('click! aaa')}
+          block={boolean(false)}>
+          {text('Button') || 'cliquitos'}
+        </Button>
+      ),
+      {
+        notes: 'button variation click',
+      }
+    )
     .add('secondary', () => <Button variation="secondary">Secondary</Button>, {
       notes: 'button variation click',
     })

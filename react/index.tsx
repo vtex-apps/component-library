@@ -4,6 +4,8 @@ import qs from './utils/qs.js'
 declare global {
   interface Window {
     Qs: any
+    sbAPI: any
+    __STORYBOOK_CLIENT_API__: any
   }
 }
 export default class App extends React.Component {
