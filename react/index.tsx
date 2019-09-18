@@ -9,15 +9,16 @@ declare global {
   }
 }
 export default class App extends React.Component {
-  public componentDidMount() {
+  public async componentDidMount() {
     // eslint-disable-next-line no-console
-    console.log('CDM')
-    window.Qs = qs
+    console.log('CDM', qs)
+    window.Qs = qs()
+    await import('./utils/addons')
 
     // Storybook UI has to be imported dynamically cuz it depends on Qs being on the window
     import('./utils/StoryBookUI').then(renderStorybookUI => {
       import('./utils/ReactProvider').then(ReactProvider => {
-        import('./utils/addons')
+        // import('./utils/addons')
         const roolEl = document.getElementById('component-library-root')
         renderStorybookUI.default(roolEl, new ReactProvider.default())
       })

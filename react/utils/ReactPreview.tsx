@@ -4,7 +4,7 @@ import mockStories from './mockStories'
 
 // addon pannels
 import addons from '@storybook/addons'
-import KnobPannel from '../utils/addonPannels/Knobs'
+// import KnobPannel from '../utils/addonPannels/Knobs'
 
 interface PreviewProps {
   storyID: string
@@ -38,18 +38,18 @@ export default class ReactPreview extends React.Component<PreviewProps> {
           ),
       })
       // window.__STORYBOOK_ADDONS.register('storybookjs/knobs', _api => {
-      addons.addPanel('storybookjs/knobs/panel', {
-        title: 'Knobs',
-        // eslint-disable-next-line react/display-name
-        render: props => (
-          <KnobPannel
-            key={props.key}
-            active={props.active}
-            api={window.sbAPI}
-            // api={_api}
-          />
-        ),
-      })
+      // addons.addPanel('storybookjs/knobs/panel', {
+      //   title: 'Knobs',
+      //   // eslint-disable-next-line react/display-name
+      //   render: props => (
+      //     <KnobPannel
+      //       key={props.key}
+      //       active={props.active}
+      //       api={window.sbAPI}
+      //       // api={_api}
+      //     />
+      //   ),
+      // })
       // })
     }
   }

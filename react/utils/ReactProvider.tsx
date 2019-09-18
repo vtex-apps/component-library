@@ -6,6 +6,7 @@ import createChannel from '@storybook/channel-postmessage'
 import Channel from '@storybook/channels'
 import { Provider } from '@storybook/ui'
 import Preview from './ReactPreview'
+import { CHANNEL_CREATED } from '@storybook/core-events'
 
 // addons registry
 // import './addons'
@@ -18,18 +19,13 @@ export default class ReactProvider extends Provider {
     super()
     const ch = createChannel({ page: 'manager' })
     addons.setChannel(ch)
+    ch.emit(CHANNEL_CREATED)
     this.channel = addons.getChannel()
     this.state = {}
   }
 
   public getElements(type: any) {
-    // still don't know what this is for...
-    console.log('getElements: ', type)
     return addons.getElements(type)
-    // if (type === 'panel') {
-    //   return addons.getElements(type)
-    // }
-    // return {}
   }
 
   public renderPreview(story: string) {
@@ -38,6 +34,7 @@ export default class ReactProvider extends Provider {
 
   public handleAPI(api: any) {
     console.log('initiating handler API... ', api)
+    addons.loadAddons(api)
 
     // define stuff in window so i can play with it
     window.sbAPI = api
