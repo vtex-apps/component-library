@@ -22,13 +22,12 @@ const mockStories = api => {
       theme: THEME,
     },
   })
-  addDecorator(withKnobs)
 
   const SimpleComponent = ({ children }) => <div>{children}</div>
 
   console.log('mocking stories...', api)
-  // api.setOptions({ theme: THEME })
-  storiesOf('web framework|example', module)
+
+  const stories = storiesOf('web framework|components', module)
     .add(
       'with text',
       () => <SimpleComponent>This is the text</SimpleComponent>,
@@ -46,21 +45,6 @@ const mockStories = api => {
         notes: 'example emoji simple component',
       }
     )
-
-  storiesOf('store|shelf', module)
-    .add('default', () => <SimpleComponent>This is a shelf</SimpleComponent>, {
-      notes: 'button variation click',
-    })
-    .add(
-      'complex',
-      () => <SimpleComponent>This is a complex shelf</SimpleComponent>,
-      {
-        notes: 'button variation click',
-      }
-    )
-
-  storiesOf('admin|vtex.button', module)
-    .addDecorator(withKnobs)
     .add(
       'default',
       () => (
@@ -91,13 +75,7 @@ const mockStories = api => {
       notes: 'button variation click',
     })
 
-  storiesOf('admin|gocommerce.input', module)
-    .add('small', () => <Input size="small" />, {
-      notes: 'button variation click',
-    })
-    .add('large', () => <Input size="large" />, {
-      notes: 'button variation click',
-    })
+  stories.addDecorator(withKnobs)
 }
 
 export default mockStories
